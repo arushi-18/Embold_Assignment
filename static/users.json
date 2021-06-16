@@ -1,0 +1,19 @@
+[
+   
+       {
+           "firstName": "Clark",
+           "lastName": "Kent",
+           "job": "Reporter",
+       },
+       {
+           "firstName": "Bruce",
+           "lastName": "Wayne",
+           "job": "Playboy",
+       },
+       {
+           "firstName": "Peter",
+           "lastName": "Parker",
+           "job": "Photographer",
+       }
+   
+]

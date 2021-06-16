@@ -1,0 +1,106 @@
+<!--extending base template and static files-->
+{% extends "Base.html" %}
+{% load static %}
+{% block content %}
+	<h1 class="mb-5 text-secondary">User list</h1>
+	<!--Search form (static) -->
+	<form class="form-inline" id="SearchForm" method="get">
+		<div class="input-group mb-3">
+		    <div class="mb-4 fontuser">
+		    	<input type="text" class="form-control bg-light rounded-pill" id="icon" name="q" placeholder="Search">
+	        </div>
+        </div>
+    </form>
+    <!-- Table to populate data submitted through the user form below as well as from the json file-->
+	<div class="outer">
+		<table class="table table-bordered mb-5" id="userdata">
+			<thead class="thead-light">
+				<tr>
+					<th>Name</th>
+					<th>Role</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				<!-- The objects stored in Django will be displayed through the loop-->
+				{% for obj in users %}
+				<tr>
+					<td>{{obj.first_name}} {{obj.last_name}}</td>
+					<td>{{obj.role}}</td>
+					<td class="ele_pos"><a href="#" class="fixed_color"><i class="fas fa-pen"></i></a></td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	<br><br>
+	<!-- User Data Form-->
+	<form method="POST" class="form" enctype="multipart/form-data" >
+        {% csrf_token %}
+        <div class="form-group row justify-content-center">
+        	<!-- To display vaidation errors -->
+			{% if form.errors %}
+			    {% for field in form %}
+			        {% for error in field.errors %}
+			        	<div class="m-1"></div>
+			            <div class="alert alert-danger">
+			                <strong>{{ error|escape }}</strong>
+			            </div>
+			            <div class="m-1"></div>
+			        {% endfor %}
+			    {% endfor %}
+			    {% for error in form.non_field_errors %}
+			        <div class="alert alert-danger p-3">
+			            <strong>{{ error|escape }}</strong>
+			        </div>
+			    {% endfor %}
+			{% endif %}
+		</div>
+        <div class="row">
+			<div class="col-md-12 col-lg-9">
+				<h1 class="mb-1 text-secondary">New User Details</h1>
+				<hr>
+				<!-- User form built using Django -->
+				<div class="form-group row justify-content-center">
+					<div class="col-md-12 col-lg-6">
+					<!-- The fields in forms.py are filled in the template below through loop-->
+					{% for field in form %}
+						{% if field.name in "username,first_name" %}
+							<input class="form-control mb-4" type="text" name="{{ field.name }}" required id="id_{{ field.name }}" data-toggle="tooltip" placeholder="{{ field.label }}" data-placement="top"/>
+						{% elif field.name in "role" %}
+							<select class="form-control mb-4" name="{{ form.role.name }}" required id="id_{{ form.role.name }}" placeholder="{{ form.role.label }}">    
+                                {% for x,y in form.fields.role.choices %}
+                                    <option value="{{x}}">{{y}}</option>
+                                {% endfor %}
+                            </select>
+						{% elif field.name in "notif" %}
+							<input class="mb-4 custom-checkbox" type="checkbox" name="{{ field.name }}" required id="id_{{ field.name }}"/>
+							<label for="id_{{ field.name }}" class="text-secondary">Send email confirmation</label>
+						{% endif %}
+					{% endfor %}
+					</div>
+					<div class="col-md-12 col-lg-6">
+						{% for field in form %}
+							{% if field.name in "last_name,email" %}
+								<input class="form-control mb-4" type="text" name="{{ field.name }}" required id="id_{{ field.name }}" data-toggle="tooltip" placeholder="{{ field.label }}" data-placement="top"/>
+							{% endif %}
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+			<div class="col-md-12 col-lg-3">
+				<h1 class="mb-1 text-secondary">Profile Picture</h1>
+				<hr>
+				<!-- Overriding Django's default image select input button to display preview of image-->
+				<img id="user_image" src="{% static 'assets/img/avatar.png' %}" class="mb-3 rounded" height="250px" width="250px">
+				<input type="file" name="profile_pic" accept="image/*" required id="id_profile_pic" class="d-none" onchange="document.getElementById('user_image').src = window.URL.createObjectURL(this.files[0]);">
+				<input type="button" class="btn custom-btn btn-light" value="Select Image" onclick="document.getElementById('id_profile_pic').click();"  />
+			</div>
+			
+		</div>
+		<hr>
+		<button class="btn modified-btn btn-info mr-3 mb-3" type="submit">Add user</button>
+		<a href="{% url 'index' %}"><button class="btn modified-btn btn-light" type="cancel">Cancel</button></a>
+	</form>
+	
+{% endblock %}

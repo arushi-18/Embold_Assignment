@@ -1,0 +1,81 @@
+html, body { 
+  margin: 0; 
+  padding: 0; 
+}
+.row{
+  width: 99%;
+}
+.container h1{
+  margin-top: 5px;
+}
+/* To contain the full image in the thumbnail during preview without cropping */
+#profile,#user_image{
+  object-fit: contain;
+  border: 1px solid #dee2e6;
+}
+.nav-border{
+  border-bottom: solid #f8f9fa 5px;
+}
+/* For sidenar to make sure that it stays on top, fixed on the left side and does not have horizontal scrollbar */
+#mySidebar {
+  height: 100%; 
+  width: 65px; /* Changed through javascript */
+  margin-top: 80px;
+  position: fixed; 
+  z-index: 1; 
+  top: 0;
+  left: 0;
+  overflow-x: hidden; 
+  padding-top: 20px;
+  transition: 0.5s; 
+}
+/* To make the icons bigger */
+.fas{
+  font-size: 50px;
+}
+
+#menu-toggle {
+    font-size: 40px;
+}
+.custom-checkbox{
+  filter: grayscale(1);
+}
+.custom-btn{
+    width: 250px;
+}
+
+.modified-btn{
+    width: 200px;
+}
+
+.fixed_color{
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.fixed_color:hover{
+  color: rgba(0, 0, 0, 1);
+}
+
+.ele_pos{
+  text-align: center;
+}
+.outer {
+    overflow-y: auto;
+    max-height: 300px;
+    width: 100%;
+  }
+
+  .outer th {
+    top: 0;
+    position: sticky;
+  }
+/* media queries to adjust content */
+@media screen and (max-width: 769px) {
+  .adjust-size{
+    justify-content: space-between;
+  }
+  .ul-adjust-size{
+    padding-left: 20px;
+    display: -webkit-box;
+  }
+}
