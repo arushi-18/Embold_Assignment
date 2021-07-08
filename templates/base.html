@@ -17,32 +17,34 @@
 	<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'css/all.min.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'css/fontawesome.min.css' %}">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
 	<!-- custom CSS file used -->       
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
 	<title>Embold</title>
 </head>
 <body>
 	<!-- horizontal navbar -->
-	<header class="sticky-top">
-		<nav class="nav navbar-expand-lg navbar-light bg-white adjust-size nav-border">
-			<!-- The button below controls the sidenav to expand and collapse-->
-			<button class="openbtn btn btn-info" id="menu-toggle" onclick="navClick()">&#9776;</button>
+	<header class="sticky-top proper-display">
+		<!-- The button below controls the sidenav to expand and collapse-->
+		<button class="openbtn btn btn-info pt-0" id="menu-toggle" onclick="navClick()">&#9776; </button>
+		<nav class="nav navbar-expand-lg navbar-light bg-white adjust-size nav-modif">
 			<!-- Embold logo applied-->
-			<img src="{% static 'assets/img/Logo-Embold-Small.svg' %}" width="200" height="40" class="mt-3 ml-3" alt="">
+			<img src="{% static 'assets/img/Logo-Embold-Small.svg' %}" width="230" height="70" class="mt-3 ml-4" alt="">
 			<!-- The button below is triggered when screen width becomes less than 769px-->
 			<button id="ham-burger align-self-end" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			    <span class="navbar-toggler-icon"></span>
 			</button>
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<ul class="navbar-nav ml-auto mr-3 ul-adjust-size">
+				<ul class="navbar-nav ml-auto mr-3 ul-adjust-size align-items-center">
 					<!-- Current user details (static) -->
 					<li class="nav-item">
-						<a class="nav-link" href="#">RENEE MCKELVEY</a>
-						<a class="nav-link" href="#">Account Settings</a>
+						<a class="link-text user-font" href="#">RENEE MCKELVEY</a>
+						<a class="link-text text-align" href="#">Account Settings</a>
 					</li>
 					<!-- Current user profile picture (static) -->
-					<li class="nav-item pr-4 pt-1">
-						<img id="profile" class="rounded rounded-circle" height="70px" width="70px" src="{% static 'assets/img/default.png' %}">
+					<li class="nav-item pl-4 account-pic ppic">
+						<img id="profile" class="rounded rounded-circle" height="56px" width="56px" src="{% static 'assets/img/default.png' %}">
 					</li>
 				</ul>
 			</div>
@@ -54,32 +56,32 @@
 		<nav class="sidenav navbar-vertical  fixed-left  navbar-expand-xs navbar-light bg-light" id="mySidebar">
 			<div class="sidebar-sticky flex-column">
 				<ul class="nav navbar-nav align-items-center">
-					<li class="nav-item m-2">
+					<li class="nav-item m-2 mb-4">
 						<a class="nav-link" href="#">
 							<i class="fas fa-search fa-2x"></i>
 							<!-- For every nav item span is visible only in expanded form-->
                         	<span class="nav-link-text pl-3 d-none">Search</span>
 						</a>
 					</li>
-					<li class="nav-item m-2">
+					<li class="nav-item m-2 mb-4">
 						<a class="nav-link" href="#">
 							<i class="fas fa-home fa-2x"></i>
 							<span class="nav-link-text pl-3 d-none">Home</span>
 						</a>
 					</li>
-					<li class="nav-item m-2">
+					<li class="nav-item m-2 mb-4">
 						<a class="nav-link" href="#">
 							<i class="fas fa-chart-area fa-2x"></i>
 							<span class="nav-link-text pl-3 d-none">Analytics</span>
 						</a>
 					</li>
-					<li class="nav-item m-2">
+					<li class="nav-item m-2 mb-4">
 						<a class="nav-link" href="#">
 							<i class="fas fa-user fa-2x"></i>
 							<span class="nav-link-text pl-3 d-none">All Users</span>
 						</a>
 					</li>
-					<li class="nav-item m-2">
+					<li class="nav-item m-2 mb-4">
 						<a class="nav-link" href="#">
 							<i class="fas fa-cog fa-2x"></i>
 							<span class="nav-link-text pl-3 d-none">Settings</span>
@@ -89,7 +91,7 @@
 			</div>
 		</nav>
 	</div>
-		<div class="container col-9 ml-sm-auto col-lg-10 pl-4 mb-5">
+		<div class="col-lg-11 mb-5 app-margin pr-0">
 			<!-- Displays messages -->
 			<div class="m-3">
 			{% if messages %}

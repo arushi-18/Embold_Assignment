@@ -25,7 +25,7 @@ class UserData(models.Model):
 		('Manager','Manager'),
 		('QA','QA')
 	]
-	role = models.CharField(choices=ROLE,max_length=20,blank=False,default='Developer')
+	role = models.CharField(choices=ROLE,max_length=20,blank=False)
 	profile_pic = models.ImageField(upload_to="profile_pictures",default='avatar.png',blank=False,validators=[validate_image])
 	notif=models.BooleanField(default=True)
 

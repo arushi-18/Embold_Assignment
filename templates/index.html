@@ -2,43 +2,52 @@
 {% extends "Base.html" %}
 {% load static %}
 {% block content %}
-	<h1 class="mb-5 text-secondary">User list</h1>
+	<h1 class="mt-5 mb-4 text-secondary custom-user-heading">User list</h1>
 	<!--Search form (static) -->
 	<form class="form-inline" id="SearchForm" method="get">
-		<div class="input-group mb-3">
-		    <div class="mb-4 fontuser">
-		    	<input type="text" class="form-control bg-light rounded-pill" id="icon" name="q" placeholder="Search">
-	        </div>
+		<div class="input-group mb-4 text-input-wrapper">
+			<span class="input-group-btn rounded-left-box">
+			    <button type="submit" class="btn" id="search-btn">
+			        <i class="fa fa-search"></i>
+			    </button>
+			</span>
+		    <input type="text" class="form-control rounded-right-box" id="search-query" name="q" placeholder="Search" onkeyup="search(this)">
         </div>
     </form>
     <!-- Table to populate data submitted through the user form below as well as from the json file-->
-	<div class="outer">
-		<table class="table table-bordered mb-5" id="userdata">
-			<thead class="thead-light">
-				<tr>
-					<th>Name</th>
-					<th>Role</th>
-					<th>Actions</th>
-				</tr>
-			</thead>
-			<tbody>
-				<!-- The objects stored in Django will be displayed through the loop-->
-				{% for obj in users %}
-				<tr>
-					<td>{{obj.first_name}} {{obj.last_name}}</td>
-					<td>{{obj.role}}</td>
-					<td class="ele_pos"><a href="#" class="fixed_color"><i class="fas fa-pen"></i></a></td>
-				</tr>
-				{% endfor %}
-			</tbody>
-		</table>
+    <div class="pr-5">
+		<div class="outer mb-5">
+			<table class="table table-bordered" id="userdata">
+				<thead class="thead-light">
+					<tr>
+						<th class="th1">Name</th>
+						<th class="th2 heading-font-weight">Role</th>
+						<th class="th3 ele_pos">Actions</th>
+					</tr>
+				</thead>
+			<!--</table>
+			<table class="table mb-5" id="userdata">-->
+				<tbody>
+					<!-- The objects stored in Django will be displayed through the loop-->
+					{% for obj in users %}
+					<tr>
+						<td>{{obj.first_name}} {{obj.last_name}}</td>
+						<td>{{obj.role}}</td>
+						<td class="ele_pos"><a href="#" class="fixed_color" onclick="populate()"><i class="fas fa-pen"></i></a></td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
 	</div>
-	<br><br>
+	<br><br><br>
 	<!-- User Data Form-->
-	<form method="POST" class="form" enctype="multipart/form-data" >
+	<form method="POST" class="form" enctype="multipart/form-data" id="user_form" >
         {% csrf_token %}
         <div class="form-group row justify-content-center">
         	<!-- To display vaidation errors -->
+        	<div class="alert alert-danger d-none" id="error_parent">
+        	</div>
 			{% if form.errors %}
 			    {% for field in form %}
 			        {% for error in field.errors %}
@@ -57,50 +66,61 @@
 			{% endif %}
 		</div>
         <div class="row">
-			<div class="col-md-12 col-lg-9">
-				<h1 class="mb-1 text-secondary">New User Details</h1>
-				<hr>
+			<div class="col-md-12 col-lg-8 pl-0">
+				<h1 class="text-secondary custom-user-heading">New User Details</h1>
+				<hr class="custom-hr-user-details">
 				<!-- User form built using Django -->
 				<div class="form-group row justify-content-center">
-					<div class="col-md-12 col-lg-6">
+					<div class="col-md-12 col-lg-6 pr-5 pl-0">
 					<!-- The fields in forms.py are filled in the template below through loop-->
 					{% for field in form %}
 						{% if field.name in "username,first_name" %}
-							<input class="form-control mb-4" type="text" name="{{ field.name }}" required id="id_{{ field.name }}" data-toggle="tooltip" placeholder="{{ field.label }}" data-placement="top"/>
+							<input class="form-control form-fields" type="text" name="{{ field.name }}" required id="id_{{ field.name }}" data-toggle="tooltip" placeholder="{{ field.label }}" data-placement="top"/>
 						{% elif field.name in "role" %}
-							<select class="form-control mb-4" name="{{ form.role.name }}" required id="id_{{ form.role.name }}" placeholder="{{ form.role.label }}">    
+						<div class="select">
+							<select class="form-control form-fields dropdown-toggle" name="{{ form.role.name }}" required id="id_{{ form.role.name }}" placeholder="{{ form.role.label }}">   
                                 {% for x,y in form.fields.role.choices %}
                                     <option value="{{x}}">{{y}}</option>
                                 {% endfor %}
                             </select>
+						</div>
 						{% elif field.name in "notif" %}
-							<input class="mb-4 custom-checkbox" type="checkbox" name="{{ field.name }}" required id="id_{{ field.name }}"/>
-							<label for="id_{{ field.name }}" class="text-secondary">Send email confirmation</label>
+						<div>
+							<input class="custom-checkbox form-fields" type="checkbox" name="{{ field.name }}" required id="id_{{ field.name }}"/>
+							<label for="id_{{ field.name }}" class="text-secondary notif-modif">Send email confirmation</label>
+						</div>
 						{% endif %}
 					{% endfor %}
 					</div>
-					<div class="col-md-12 col-lg-6">
+					<div class="col-md-12 col-lg-6 pl-4 pr-2">
 						{% for field in form %}
 							{% if field.name in "last_name,email" %}
-								<input class="form-control mb-4" type="text" name="{{ field.name }}" required id="id_{{ field.name }}" data-toggle="tooltip" placeholder="{{ field.label }}" data-placement="top"/>
+								<input class="form-control form-fields" type="text" name="{{ field.name }}" required id="id_{{ field.name }}" data-toggle="tooltip" placeholder="{{ field.label }}" data-placement="top"/>
 							{% endif %}
 						{% endfor %}
 					</div>
 				</div>
 			</div>
-			<div class="col-md-12 col-lg-3">
-				<h1 class="mb-1 text-secondary">Profile Picture</h1>
-				<hr>
+			<div class="col-md-12 col-lg-4 px-5">
+				<h1 class="mb-1 text-secondary profile-custom-heading">Profile Picture</h1>
+				<hr class="custom-hr-profile-pic">
 				<!-- Overriding Django's default image select input button to display preview of image-->
-				<img id="user_image" src="{% static 'assets/img/avatar.png' %}" class="mb-3 rounded" height="250px" width="250px">
-				<input type="file" name="profile_pic" accept="image/*" required id="id_profile_pic" class="d-none" onchange="document.getElementById('user_image').src = window.URL.createObjectURL(this.files[0]);">
-				<input type="button" class="btn custom-btn btn-light" value="Select Image" onclick="document.getElementById('id_profile_pic').click();"  />
+				<img id="user_image" src="{% static 'assets/img/avatar.png' %}" class="form-field-pic">
+				<input type="file" name="profile_pic" accept="image/*" required id="id_profile_pic" class="d-none" onchange="pic_validate()">
+				<input type="button" class="btn custom-btn btn-light mt-3" value="Select Image" onclick="document.getElementById('id_profile_pic').click();"  />
 			</div>
 			
 		</div>
-		<hr>
-		<button class="btn modified-btn btn-info mr-3 mb-3" type="submit">Add user</button>
-		<a href="{% url 'index' %}"><button class="btn modified-btn btn-light" type="cancel">Cancel</button></a>
+		<hr class="custom-bottom-hr">
+		<button class="btn modified-btn btn-info mr-3 my-3" type="submit">Add user</button>
+		<a href="{% url 'index' %}"><button class="btn modified-btn btn-light text-secondary" type="button">Cancel</button></a>
 	</form>
-	
+	<script type="text/javascript">
+		let field_names=["id_{{ form.username.name }}","id_{{ form.first_name.name}}", "id_{{ form.role.name }}", "id_{{ form.email.name }}","id_{{ form.last_name.name }}"];
+  		let field_values=["{{ form.username.value }}","{{ form.first_name.value }}", "{{ form.role.value }}", "{{ form.email.value }}","{{ form.last_name.value }}"];
+	  	for(let i=0;i<field_names.length;i++)
+	  	{    if(field_values[i]!=="" && field_values[i]!==null && field_names[i]!=="id_" && field_names[i]!==null && field_values[i]!="None")
+	         document.getElementById(field_names[i]).value=field_values[i];
+	  	}
+	</script>
 {% endblock %}

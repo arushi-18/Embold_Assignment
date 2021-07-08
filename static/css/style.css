@@ -1,53 +1,110 @@
-html, body { 
-  margin: 0; 
+html, body,.row,div { 
   padding: 0; 
+  font-weight: 600;
 }
 .row{
   width: 99%;
+  margin: auto;
 }
 .container h1{
   margin-top: 5px;
 }
+
+.app-margin{
+  margin-left: 100px;
+  padding-left: 2.5rem;
+}
 /* To contain the full image in the thumbnail during preview without cropping */
 #profile,#user_image{
   object-fit: contain;
-  border: 1px solid #dee2e6;
+  border: 2px solid #8080807d;
 }
-.nav-border{
+
+.account-pic{
+  padding-right: 2.5rem;
+}
+
+/* navbar settings*/
+.nav-modif{
   border-bottom: solid #f8f9fa 5px;
+  width: 100%;
+  box-sizing: border-box;
+  height: 100px;
 }
+.proper-display{
+  display: flex;
+  justify-content: start;
+}
+.user-font{
+  font-size: 1.5rem;
+}
+.link-text{
+  padding: 0;
+  color: rgba(0, 0, 0,0.5);
+  display: block;
+  margin: 0;
+  line-height: 1;
+}
+.text-align{
+  text-align: right;
+  font-size: larger;
+}
+
+.link-text:hover{
+  color: rgba(0, 0, 0,1);
+  text-decoration: none;
+}
+
 /* For sidenar to make sure that it stays on top, fixed on the left side and does not have horizontal scrollbar */
 #mySidebar {
   height: 100%; 
-  width: 65px; /* Changed through javascript */
-  margin-top: 80px;
+  width: 80px; /* Changed through javascript */
   position: fixed; 
   z-index: 1; 
   top: 0;
   left: 0;
   overflow-x: hidden; 
-  padding-top: 20px;
   transition: 0.5s; 
+  padding-top: 60px;
+  margin-top: 85px;
 }
+
+/*Search box*/
+.rounded-right-box{
+  border-top-right-radius: 1.5rem;
+  border-bottom-right-radius: 1.5rem;
+  border: 1px solid grey;
+  border-left: none;
+  height: 40px;
+  padding-left: 0px;
+}
+
+.rounded-right-box:focus{
+  border-color: grey;
+  box-shadow: none;
+}
+
+.rounded-left-box{
+  border-top-left-radius: 1.5rem;
+  border-bottom-left-radius: 1.5rem;
+  border: 1px solid grey;
+  border-right: none;
+}
+
+#search-btn{
+  padding-right: 0px;
+}
+
+.btn:focus{
+  box-shadow: none;
+}
+
 /* To make the icons bigger */
 .fas{
-  font-size: 50px;
+  font-size: 70px;
 }
 
-#menu-toggle {
-    font-size: 40px;
-}
-.custom-checkbox{
-  filter: grayscale(1);
-}
-.custom-btn{
-    width: 250px;
-}
-
-.modified-btn{
-    width: 200px;
-}
-
+/* User dispay table*/
 .fixed_color{
   color: rgba(0, 0, 0, 0.5);
 }
@@ -61,21 +118,248 @@ html, body {
 }
 .outer {
     overflow-y: auto;
-    max-height: 300px;
+    overflow-x: hidden;
+    max-height: 306px;
     width: 100%;
   }
 
-  .outer th {
-    top: 0;
-    position: sticky;
+.outer th {
+  top: 0;
+  position: sticky;
+}
+
+table{
+  border-collapse: collapse;
+}
+
+  .th1,.th2,.td1,.td2{
+    width: 42%;
+    border-left: 2px solid #8080807d;
+    border-top: 0;
   }
+
+  .th3,.td3{
+    width: 16%;
+    border-left: 2px solid #8080807d;
+    border-right: 2px solid #8080807d;
+    border-top: 0;
+  }
+
+.td1,.td2,.td3{
+  border-bottom: 2px solid #8080807d;
+}
+
+.table{
+  margin-bottom: 0;
+}
+
+.table .thead-light th{
+  border-color: #8080807d;
+}
+
+.table td,th{
+  padding: 1rem;
+  font-size: 1.2rem;
+  border-top: 0;
+}
+
+.table thead th{
+  border-bottom: 0;
+}
+
+.table-bordered th, .table-bordered td{
+  border-left: 2px solid #8080807d;
+  border-right: 2px solid #8080807d;
+  border-bottom: 2px solid #8080807d;
+}
+.table th{
+  border-top: 2px solid #8080807d;
+}
+
+/* User form */
+#menu-toggle {
+  font-size: 45px;
+  border-radius: 0;
+  height: 104px;
+  width: 87px;
+}
+
+.row-adjust{
+  display: flex;
+  flex-wrap: wrap;
+}
+.notif-modif{
+  font-size: 1.5rem;
+  padding-left: 5px;
+  vertical-align: text-bottom;
+}
+.custom-checkbox{
+  filter: grayscale(1);
+  width: 1.5rem;
+  height: 1.5rem;
+}
+.custom-btn{
+    width: 100%;
+    font-size: x-large;
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.modified-btn{
+    width: 200px;
+    font-size: x-large;
+}
+
+.heading-font-weight,td{
+  font-weight: 600;
+}
+
+.form-fields{
+  border-radius: 0px;
+  margin-top: 2rem;
+  height: 50px;
+  font-size: x-large;
+  border: 2px solid #8080807d;
+}
+
+.form-field-pic{
+  border-radius: 3px;
+  margin-top: 2rem;
+  height: 65%;
+  width: 100%;
+  /*border-color: #343a40;
+  opacity: 0.5;*/
+}
+
+.form-fields:focus{
+  box-shadow: none;
+  border-color: #8080807d;
+}
+
+.form-fields::placeholder{
+  padding-left: 10px;
+}
+
+.custom-hr-user-details{
+  margin-bottom: 0px;
+  margin-top: 0.5rem;
+  /*width: 1445px;*/
+  width: 96.5%;
+  margin-inline-start: inherit;
+}
+
+.custom-hr-profile-pic{
+  margin-bottom: 0px;
+  margin-top: 0.5rem;
+  width: 100%;
+  margin-inline-start: inherit;
+}
+
+.custom-bottom-hr{
+  width: 95%;
+  margin-inline-start: inherit;
+}
+
+.profile-custom-heading{
+  width: max-content;
+  font-weight: 400;
+}
+
+.custom-user-heading{
+  font-weight: 400;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active
+{
+ -webkit-box-shadow: 0 0 0 30px white inset;
+}
+
+.dropdown-toggle{
+  height: 50px;
+  align-self: flex-end;
+}
+
+select::-ms-expand {
+  display: none;
+}
+/* Custom Select */
+.select {
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: 50px;
+  line-height: 3;
+  overflow: hidden;
+  margin-top: 2rem;
+}
+select {
+  flex: 1;
+  color: #000;
+  cursor: pointer;
+  width: 100%;
+}
+/* Arrow */
+.select::after {
+  content: '\25BC';
+  height: 50px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0 0.5em;
+  background: #8080807d;
+  border-left: 2px solid #8080807d;
+  cursor: pointer;
+  pointer-events: none;
+  -webkit-transition: .25s all ease;
+  -o-transition: .25s all ease;
+  transition: .25s all ease;
+}
+
+.drop-btn{
+  background-color: rgba(0, 0, 0, 0.1);
+  border-bottom:  2px solid #8080807d;
+  border-right:  2px solid #8080807d;
+  border-top:  2px solid #8080807d;
+  border-left: 0;
+  padding: 5px;
+  padding-left: 1px;
+}
+
+#id_role{
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.btn{
+  border-radius: 0px;
+  font-weight: 600;
+}
+
 /* media queries to adjust content */
 @media screen and (max-width: 769px) {
   .adjust-size{
     justify-content: space-between;
   }
+  .custom-hr-user-details{
+    width: 75%;
+  }
   .ul-adjust-size{
     padding-left: 20px;
     display: -webkit-box;
   }
+}
+
+@media screen and (max-width: 2000px) {
+  .ppic{
+    padding-right: 3rem;
+  }  
+}
+
+@media screen and (min-width: 2000px) {
+  .ppic{
+    padding-right: 6.5rem;
+  }  
 }

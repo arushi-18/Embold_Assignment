@@ -3,24 +3,36 @@ var v={
     "user":
     [
        {
+           "username":"Ada1",
            "first_name": "Ada",
-           "last_name": "Lovelace",
            "role": "Admin",
+           "email":"adalovelace@abc.co",
+           "last_name": "Lovelace",
+           "image":"/media/profile_pictures/1kb_optimized.png",
        },
-       {
+       {    
+           "username":"Grace1",
            "first_name": "Grace",
-           "last_name": "Hopper",
            "role": "Developer",
+           "email":"gracehopper@abc.co",
+           "last_name": "Hopper",
+           "image":"/media/profile_pictures/1kb_optimized.png", 
        },
        {
+           "username":"Margaret1",
            "first_name": "Margaret",
-           "last_name": "Hamilton",
            "role": "QA",
+           "email":"margarethamilton@abc.co",
+           "last_name": "Hamilton",
+           "image":"/media/profile_pictures/1kb_optimized.png",  
        },
        {
+           "username":"Joan1",
            "first_name": "Joan",
-           "last_name": "Clarke",
            "role": "Manager",
+           "email":"joanclarke@abc.co",
+           "last_name": "Clarke",
+           "image":"/media/profile_pictures/1kb_optimized.png",
        },
    ]
 }
